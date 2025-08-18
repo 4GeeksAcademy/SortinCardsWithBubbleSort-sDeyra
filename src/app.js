@@ -22,7 +22,7 @@ window.onload = function () {
 
 let palo = ["♦", "♥", "♠", "♣"]
 let numero = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-
+let cartasActuales = []
 
 
 const generarCarta = () => {
@@ -58,11 +58,15 @@ const variasCartasAleatorias = (cantidad) => {
   const contenedor = document.getElementById("contenedorCartas1");
   contenedor.innerHTML = "";
 
+  cartasActuales = [];
+
   for (let i = 0; i < cantidad; i++) {
     let carta = generarCarta();
+    cartasActuales.push(carta);
     let cartaHTML = crearCartaHTML(carta)
     contenedor.appendChild(cartaHTML)
   }
 }
+
 
 
