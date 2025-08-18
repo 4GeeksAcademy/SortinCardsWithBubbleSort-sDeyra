@@ -6,11 +6,25 @@ body{
     background: rgb(70, 161, 247);
 }
 
-.card {
-    font-family: Cardo;
-    border-radius: 5px;
+.carta {
+  width: 80px;
+  height: 120px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.list-group-item {
-  border: none;
+#contenedorCartas1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
