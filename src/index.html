@@ -1,35 +1,38 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="./assets/img/4geeks.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello Rigo with Vanilla.js</title>
-
-  <!-- Fontawesome is our recomended library for icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-    integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Write your HTML code here, you can delete everything withing the body tags -->
-  <div class="container-fluid text-center"></div>
-  <div class="botones">
-    <input class="cantidad" type="number" placeholder="Ingresa numero de cartas" id="inputCantidad">
-    <button class="btn btn-light text-dark" id="botonSort" type="button">Sortear</button>
-    <button class="btn btn-light text-dark" id="botonOrd" type="button">Ordenar</button>
-  </div>
-  <div class="contenido" id="contenedorCartas1">
+    <h1>Generador de Cartas al Azar</h1>
 
-  </div>
-  <div class="contenido2" id="ContenedorCartas2">
+    <div class="controls">
+        <input type="number" id="cardCountInput" placeholder="Número de cartas" min="1" max="52" value="5">
+        <button id="drawButton">Robar Cartas</button>
+        <button id="sortButton">Ordenar (Selection Sort)</button>
+    </div>
 
-  </div>
+    <!-- Contenedor cartas-->
+    <div id="draw-container" class="card-container">
+        <h2>Tu Mano:</h2>
+        <div id="hand" class="cards"></div>
+    </div>
+    
+    <!-- Contenedor de pasos -->
+    <div id="log-container" class="card-container">
+        <h2>Registro de Ordenamiento:</h2>
+        <div id="sortLog" class="log-steps"></div>
+    </div>
 
 
-  <!-- Do not delete this script tag, this is what connects your HTML with the Javascript code -->
-  <script type="module" src="/app.js"></script>
+
+
+    <script src="app.js"></script>
 </body>
 
 </html>
