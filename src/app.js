@@ -29,6 +29,7 @@ const valoresNumericos = {
 
 let cartasActuales = [];
 let logCambios = [];
+let cambiosOrden = []; 
 
 function generarCarta() {
   const paloAleatorio = palos[Math.floor(Math.random() * palos.length)];
@@ -61,6 +62,7 @@ function generarVariasCartas(cantidad) {
   logDiv.innerHTML = "";
   cartasActuales = [];
   logCambios = [];
+  cambiosOrden = [];
 
   for (let i = 0; i < cantidad; i++) {
     const nuevaCarta = generarCarta();
@@ -74,39 +76,38 @@ function generarVariasCartas(cantidad) {
 function ordenarCartasConLog() {
   const logDiv = document.getElementById("sortLog");
   logDiv.innerHTML = "";
-
+  
   let copiaCartas = [...cartasActuales];
+  logCambios = [];
+  cambiosOrden = [];
 
-  for (let i = 0; i < copiaCartas.length; i++) {
-    let minIndex = i;
+  // Bubble Sort
+  let n = copiaCartas.length;
+  let swapped;
 
-    for (let j = i + 1; j < copiaCartas.length; j++) {
-      if (
-        valoresNumericos[copiaCartas[j].valor] <
-        valoresNumericos[copiaCartas[minIndex].valor]
-      ) {
-        minIndex = j;
+  for (let i = 0; i < n - 1; i++) {
+    swapped = false;
+    logCambios.push(`Iteración ${i + 1}:`);
+
+    for (let j = 0; j < n - 1 - i; j++) {
+      if (valoresNumericos[copiaCartas[j].valor] > valoresNumericos[copiaCartas[j + 1].valor]) {
+        // Intercambio
+        [copiaCartas[j], copiaCartas[j + 1]] = [copiaCartas[j + 1], copiaCartas[j]];
+        swapped = true;
+
+        // Guardar cambio y estado actual
+        logCambios.push(`  Intercambio posiciones ${j} y ${j + 1}`);
+        const estado = copiaCartas.map(c => c.valor + c.palo).join(", ");
+        logCambios.push(`  Estado actual: ${estado}`);
+
+        cambiosOrden.push([...copiaCartas]);
       }
     }
 
-    if (minIndex !== i) {
-      // Guardar cambio
-      logCambios.push(
-        `Intercambio carta en posición ${i} con carta en posición ${minIndex}`
-      );
-
-      // Intercambiar
-      let temp = copiaCartas[i];
-      copiaCartas[i] = copiaCartas[minIndex];
-      copiaCartas[minIndex] = temp;
-
-      // Agregar estado actual
-      const estado = copiaCartas.map(c => c.valor + c.palo).join(", ");
-      logCambios.push("Estado actual: " + estado);
-    }
+    if (!swapped) break;
   }
 
-  // Mostrar cartas ordenadas
+  // Cartas ordenadas
   const mano = document.getElementById("hand");
   mano.innerHTML = "";
   copiaCartas.forEach(carta => {
@@ -114,8 +115,16 @@ function ordenarCartasConLog() {
     mano.appendChild(cartaHTML);
   });
 
-  // Mostrar cambioss
-  logCambios.forEach((mensaje, index) => {
+  // Todos los cambios
+  cambiosOrden.forEach((estado, index) => {
+    const divEstado = document.createElement("div");
+    divEstado.className = "log-step state";
+    divEstado.innerText = `Cambio ${index + 1}: ` + estado.map(c => c.valor + c.palo).join(", ");
+    logDiv.appendChild(divEstado);
+  });
+
+  // Texto
+  logCambios.forEach(mensaje => {
     const divPaso = document.createElement("div");
     divPaso.className = "log-step";
     divPaso.innerText = mensaje;
